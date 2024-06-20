@@ -1,13 +1,15 @@
-import React, { useState } from 'react'; // React와 useState 훅을 import하여 React 기능을 사용할 수 있도록 
-import './Dropdown.css'; // ./Dropdown.css를 import하여 Dropdown 컴포넌트에 스타일을 적용
+import React, { useState } from "react"; // React와 useState 훅을 import하여 React 기능을 사용할 수 있도록
+import "./Dropdown.css"; // ./Dropdown.css를 import하여 Dropdown 컴포넌트에 스타일을 적용
 
-const Dropdown = () => { // Dropdown이라는 함수형 컴포넌트를 정의
-  const options = ['상', '중', '하']; // 배열!!!!!!!!!!!!!!!
-  const [isOpen, setIsOpen] = useState(false); 
+const Dropdown = () => {
+  // Dropdown이라는 함수형 컴포넌트를 정의
+  const options = ["상", "중", "하"]; // 배열!!!!!!!!!!!!!!!
+  const [isOpen, setIsOpen] = useState(false);
   // isOpen은 드롭다운 메뉴가 열려 있는지 닫혀 있는지를 관리. 초기값은 false로 설정
-  const toggleDropdown = () => { // toggleDropdown 함수는 호출될 때마다 isOpen 상태를 변환. 즉 드롭 다운을 열거나 닫음
-    setIsOpen(!isOpen)
-  }
+  const toggleDropdown = () => {
+    // toggleDropdown 함수는 호출될 때마다 isOpen 상태를 변환. 즉 드롭 다운을 열거나 닫음
+    setIsOpen(!isOpen);
+  };
 
   const selectOption = (option) => {
     setIsOpen(false); // selectOption 은 드롭 다운 닫기
@@ -16,12 +18,14 @@ const Dropdown = () => { // Dropdown이라는 함수형 컴포넌트를 정의
   return (
     <div className="dropdown">
       <button className="dropdown-toggle" onClick={toggleDropdown}>
-        중 <span className="arrow">{isOpen ? '▲' : '▼'}</span>
+        중 <span className="arrow">{isOpen ? "▲" : "▼"}</span>
       </button>
       {isOpen && (
         <ul className="dropdown-menu">
           {options.map((option) => (
-            <li key={option} onClick={() => selectOption(option)}>{option}</li>
+            <li key={option} onClick={() => selectOption(option)}>
+              {option}
+            </li>
           ))}
         </ul>
       )}
