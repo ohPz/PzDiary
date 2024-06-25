@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const Hanul = ({ children }) => {
   return (
@@ -8,6 +8,7 @@ const Hanul = ({ children }) => {
         <div className="flex-1 bg-green-500 p-4">아래 1</div>
         <div className="flex-1 bg-red-500 p-4">
           아래2
+          <div className="flex h-1/3"></div>
           {children}
         </div>
         <div className="flex-1 bg-yellow-500 p-4">아래 3</div>
