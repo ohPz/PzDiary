@@ -4,25 +4,27 @@ import { useEffect, useRef } from "react";
 // import Button from "./atoms/Button";
 import Input from "./atoms/Input";
 
-export default function Login({ enterToDo }) {
+export default function Login() {
+  // export default function Login({ enterToDo }) {
+
   const titleRef = useRef();
   const contentRef = useRef();
 
-  const enterEntry = (evt) => {
-    evt.preventDefault();
-    // evt.stopPropagation();
-    // console.log("nameRef.current.value>>", nameRef.current.value);
-    const title = titleRef.current.value;
-    const content = contentRef.current.value;
-    if (!title || !content) {
-      alert("이름과 패스워드를 정확히 입력하세요!");
-      if (!title) title.current.focus();
-      else content.current.focus();
-      return;
-    }
+  // const enterEntry = (evt) => {
+  //   evt.preventDefault();
+  //   // evt.stopPropagation();
+  //   // console.log("nameRef.current.value>>", nameRef.current.value);
+  //   const title = titleRef.current.value;
+  //   const content = contentRef.current.value;
+  //   if (!title || !content) {
+  //     alert("이름과 패스워드를 정확히 입력하세요!");
+  //     if (!title) title.current.focus();
+  //     else content.current.focus();
+  //     return;
+  //   }
 
-    enterToDo(titleRef.current.value, contentRef.current.value);
-  };
+  //   enterToDo(titleRef.current.value, contentRef.current.value);
+  // };
   //untitled ???
   useEffect(() => {
     if (titleRef.current) titleRef.current.focus();
