@@ -8,13 +8,17 @@ export default function Card(children: Children) {
   const { title, detail, btn } = children;
   return (
     <>
-      <div className='flex justify-center border-2 border-black m-4'>
-        <div className='block max-w-[18rem] rounded-lg bg-success text-white shadow-secondary-1'>
-          <h5 className='border-b-2 border-black/20'></h5>
-          <div className='p-6'>{title}</div>
-          <button onClick={btn}>EDIT</button>
-          <div className='p-6'>{detail}</div>
+      <div className='card w-3/12 border-black border-2 p-4'>
+        <div className='card_top flex flex-col justify-between p-4'>
+          <div className='title font-bold'>
+            <span>{title}</span>
+          </div>
+          <div className='button'>
+            <button className={btn}>EDIT</button>
+          </div>
         </div>
+        <hr />
+        <div className='card_bottom p-8'>{detail}</div>
       </div>
     </>
   );
