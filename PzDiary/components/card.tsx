@@ -10,11 +10,12 @@ export default function Card(children: Children) {
     <>
       <div className='card w-3/12 border-black border-2 p-4'>
         <div className='card_top flex flex-col justify-between p-4'>
-          <div className='title font-bold'>
+          <div className='card_top_title font-bold'>
             <span>{title}</span>
           </div>
-          <div className='button'>
-            <button className={btn}>EDIT</button>
+          <div className='card_top_button'>
+            {/* TODO : Button component 불러와서 쓰기 */}
+            <button onClick={btn}>EDIT</button>
           </div>
         </div>
         <hr />
