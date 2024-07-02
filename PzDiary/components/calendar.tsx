@@ -112,14 +112,7 @@ export default function Calendar() {
       rows.push(dateCells.splice(0, 7));
     }
 
-    const today_year = new Date().getFullYear();
-    const today_month = new Date().getMonth();
-    const today_date = new Date().getDate();
-    const today = new Date(
-      today_year,
-      today_month,
-      today_date
-    ).toLocaleString();
+    const today = new Date(new Date().setHours(24, 0, 0, 0)).toLocaleString();
     console.log(
       `오늘은 ${today}입니다. ::: cell.toLocaleString() ===  today ?`
     );
