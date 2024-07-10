@@ -2,20 +2,46 @@
 
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Textarea } from './ui/textarea';
 
 export function InputWithLabel() {
+  function SelectProgress() {
+    return (
+      <Select>
+        <SelectTrigger className='w-[180px]'>
+          <SelectValue placeholder='Select Progress' />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>Select Progress</SelectLabel>
+            <SelectItem value='대기'>대기</SelectItem>
+            <SelectItem value='진행'>진행</SelectItem>
+            <SelectItem value='완료'>완료</SelectItem>
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    );
+  }
   return (
     <>
       <div className='h-5/6 ml-2 mr-2 p-3'>
-        <div className='flex w-full items-center gap-3.5 mb-4'>
+        <div className='flex w-full items-center gap-3.5 mb-4 ml-6 pr-6'>
           <div className='flex-none'>
             <Label htmlFor='dropdown'>
-              <p className='text-slate-500'>드럽다운</p>
+              <p className='text-slate-500'>진행</p>
             </Label>
           </div>
           <div className='flex-grow'>
-            <Input type='text' id='dropdown' placeholder='드럽다운' />
+            <SelectProgress />
           </div>
         </div>
         <div className='flex w-full items-center gap-3.5 mb-4 ml-6 pr-6'>
