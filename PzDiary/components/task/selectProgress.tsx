@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Select,
   SelectContent,
@@ -8,9 +9,11 @@ import {
   SelectValue,
 } from '../ui/select';
 
-export function SelectProgress() {
+export const SelectProgress = () => {
+  const [value, setValue] = useState('Select Progress');
+  console.log(`SelectProgress: ${value}`);
   return (
-    <Select>
+    <Select onValueChange={(value) => setValue(value)}>
       <SelectTrigger className='w-[180px]'>
         <SelectValue placeholder='Select Progress' />
       </SelectTrigger>
@@ -24,4 +27,4 @@ export function SelectProgress() {
       </SelectContent>
     </Select>
   );
-}
+};

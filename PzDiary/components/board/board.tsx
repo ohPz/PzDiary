@@ -1,5 +1,7 @@
-import { ReactNode } from 'react';
+import { ITodo } from '@/lib/types';
+import { getTodos } from '@/lib/utils';
 import { SaveTask } from '../task/saveTask';
+import { Task } from '../task/task';
 import {
   Card,
   CardContent,
@@ -8,19 +10,25 @@ import {
   CardTitle,
 } from '../ui/card';
 
-export function Board({
+export async function Board({
+  boardId,
   boardTitle,
-  children,
 }: {
+  boardId: number;
   boardTitle: string;
-  children: ReactNode;
 }) {
+  const { todos } = await getTodos(boardId);
+
   return (
-    <Card className='h-full overflow-y-scroll'>
+    <Card className='flex-1 h-full overflow-y-scroll'>
       <CardHeader className='p-4 space-y-0'>
         <CardTitle>{boardTitle}</CardTitle>
       </CardHeader>
-      <CardContent>{children}</CardContent>
+      <CardContent>
+        {todos.map((todo: ITodo, i: number) => (
+          <Task key={i} todo={todo} />
+        ))}
+      </CardContent>
       <CardFooter>
         <SaveTask isCreate={true} />
       </CardFooter>

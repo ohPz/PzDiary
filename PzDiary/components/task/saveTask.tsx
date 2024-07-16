@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { ITodo } from '@/lib/types';
 import { Button } from '../ui/button';
 import { Calendar } from '../ui/calendar';
 import {
@@ -14,13 +15,14 @@ import {
 } from '../ui/dialog';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
+import { Textarea } from '../ui/textarea';
 import { SelectProgress } from './selectProgress';
 
 export function SaveTask({
   todo,
   isCreate = false,
 }: {
-  todo?: Todo;
+  todo?: ITodo;
   isCreate?: boolean;
 }) {
   let flag: {
@@ -80,9 +82,9 @@ export function SaveTask({
             </Label>
 
             {isCreate ? (
-              <Input id='detail' className='col-span-3' />
+              <Textarea id='detail' className='col-span-3' />
             ) : (
-              <Input
+              <Textarea
                 id='detail'
                 defaultValue={todo?.detail}
                 className='col-span-3'
@@ -96,20 +98,20 @@ export function SaveTask({
 
             {isCreate ? <SelectProgress /> : <SelectProgress />}
           </div>
+        </div>
+        <div className='grid grid-cols-4 items-center gap-4'>
+          <Label htmlFor='progress' className='text-right'>
+            Deadline
+          </Label>
 
-          <div className='grid grid-cols-4 items-center gap-4'>
-            <Label htmlFor='progress' className='text-right'>
-              Deadline
-            </Label>
-
-            <Calendar
-              mode='single'
-              selected={date}
-              onSelect={setDate}
-              className='rounded-md'
-              showOutsideDays={true}
-            />
-          </div>
+          <Calendar
+            mode='single'
+            selected={date}
+            onSelect={setDate}
+            className='rounded-md'
+            showOutsideDays={true}
+            initialFocus={true}
+          />
         </div>
         <DialogFooter>
           <Button type='submit'>Save</Button>

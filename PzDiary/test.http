@@ -1,0 +1,77 @@
+@api=http://localhost:3000/api
+
+### get boards
+GET {{api}}/boards?userId=1
+
+
+###
+# insert board testing
+POST {{api}}/boards 
+{
+  "userId": 1,
+  "title": "Test Book",
+}
+
+### get a board
+GET {{api}}/boards/1
+
+### update board
+PATCH {{api}}/boards/5
+
+{
+  "title": "PATCH Test Book",
+  "userId": 1,
+}
+
+###
+
+PUT {{api}}/boards/6
+
+{
+  "title": "PUT Test Book",
+  "userId": 1,
+}
+
+### delete board
+DELETE {{api}}/boards/7
+
+# ==================================
+
+### get tasks
+GET {{api}}/todos?boardId=2
+
+
+###
+# insert task testing
+POST {{api}}/todos
+
+{
+  "title": "Test Todo",
+  "detail": "Test Todo Detail",
+  "boardId": 1,
+}
+
+### get a task
+GET {{api}}/todos/1
+
+### update task
+PATCH {{api}}/todos/5
+
+{
+  "title": "Test Todo PATCH",
+  "detail": "Test Todo Detail",
+  "boardId": 1,
+}
+
+### update task
+
+PUT {{api}}/todos/6
+
+{
+  "title": "Test Todo PUT",
+  "detail": "Test Todo Detail",
+  "boardId": 1,
+}
+
+### delete task
+DELETE {{api}}/todos/7
