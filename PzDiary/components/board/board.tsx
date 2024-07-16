@@ -25,9 +25,7 @@ export async function Board({
         <CardTitle>{boardTitle}</CardTitle>
       </CardHeader>
       <CardContent>
-        {todos.map((todo: ITodo, i: number) => (
-          <Task key={i} todo={todo} />
-        ))}
+        {todos?.map((todo: ITodo, i: number) => <Task key={i} todo={todo} />)}
       </CardContent>
       <CardFooter>
         <SaveTask isCreate={true} />

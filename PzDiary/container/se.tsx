@@ -13,7 +13,7 @@ export default async function SeContainer() {
 
   return (
     <div className='flex flex-row gap-3'>
-      {boards.map((board: IBoardView, i: number) => (
+      {boards?.map((board: IBoardView, i: number) => (
         <Board key={i} boardId={board.id} boardTitle={board.title} />
       ))}
     </div>
