@@ -1,3 +1,4 @@
-import { handlers } from '@/auth';
+export { GET, POST } from '@/lib/auth';
+export const runtime = 'edge';
 
-export const { GET, POST } = handlers;
+console.log('CAAAAAALLBACKKKKKKKKK');
