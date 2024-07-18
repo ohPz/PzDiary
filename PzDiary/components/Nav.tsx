@@ -13,11 +13,13 @@ export default function Nav() {
   return (
     <>
       <div className='container mx-auto px-4 py-2 flex justify-between items-center'>
-        <p className='text-xl'>PzDiary</p>
+        <Link href='/' className='text-4xl'>
+          PzDiary
+        </Link>
         <Link href='/api/auth/signin'>
           Sign In (should put search bar later)
         </Link>
-        <div className='rounded-full'>
+        <div className='w-15 h-15'>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button>
