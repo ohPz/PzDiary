@@ -3,13 +3,14 @@
 ### get boards
 GET {{api}}/boards?userId=1
 
-
-###
 # insert board testing
-POST {{api}}/boards 
+###
+POST {{api}}/boards
+
 {
   "userId": 1,
   "title": "Test Book",
+  "status": 0
 }
 
 ### get a board
@@ -20,7 +21,7 @@ PATCH {{api}}/boards/5
 
 {
   "title": "PATCH Test Book",
-  "userId": 1,
+  "userId": 1
 }
 
 ###
@@ -29,7 +30,7 @@ PUT {{api}}/boards/6
 
 {
   "title": "PUT Test Book",
-  "userId": 1,
+  "userId": 1
 }
 
 ### delete board
@@ -40,15 +41,14 @@ DELETE {{api}}/boards/7
 ### get tasks
 GET {{api}}/todos?boardId=2
 
-
-###
 # insert task testing
+###
 POST {{api}}/todos
 
 {
   "title": "Test Todo",
   "detail": "Test Todo Detail",
-  "boardId": 1,
+  "boardId": 1
 }
 
 ### get a task
@@ -60,7 +60,7 @@ PATCH {{api}}/todos/5
 {
   "title": "Test Todo PATCH",
   "detail": "Test Todo Detail",
-  "boardId": 1,
+  "boardId": 1
 }
 
 ### update task
@@ -70,7 +70,7 @@ PUT {{api}}/todos/6
 {
   "title": "Test Todo PUT",
   "detail": "Test Todo Detail",
-  "boardId": 1,
+  "boardId": 1
 }
 
 ### delete task
