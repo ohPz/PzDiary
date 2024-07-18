@@ -58,7 +58,7 @@ export const getTodoOne = async (todoId: number) => {
 };
 
 export const getTodos = async (boardId: number) => {
-  const res = await fetch(`${URL}/boards?boardId=${boardId}`);
+  const res = await fetch(`${URL}/todos?boardId=${boardId}`);
   return res.json();
 };
 

@@ -1,3 +1,5 @@
+'use client';
+
 import { ITodo } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { SaveTask } from './saveTask';

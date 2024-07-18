@@ -13,8 +13,8 @@ const config = {
   password,
   database,
   waitForConnections: true,
-  connectionLimit: 5,
-  maxIdle: 5,
+  connectionLimit: 3,
+  maxIdle: 3,
   idleTimeout: 60000,
 };
 const pool = mysql.createPool(config);
@@ -42,7 +42,7 @@ export const execute = async (sql: string, params: unknown[]) => {
   const connection = await pool.getConnection();
   try {
     const [rows] = await connection.query<ResultSetHeader>(sql, params);
-    console.log('🚀 db.ts execute result:', rows);
+    // console.log('🚀 db.ts execute result:', rows);
     return rows;
   } catch (error) {
     console.table({ error });
