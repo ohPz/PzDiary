@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Textarea } from '../ui/textarea';
+import { Textarea } from './ui/textarea';
 
 export function InputWithLabel() {
   function SelectProgress() {

@@ -1,4 +1,4 @@
-import { InputWithLabel } from '@/components/tmp/inputWithLabel';
+import { InputWithLabel } from '@/components/inputWithLabel';
 
 export default function SyContainter() {
   return (
