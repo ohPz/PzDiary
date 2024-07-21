@@ -24,15 +24,15 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;
   const userId = searchParams.get('userId');
-  console.log('🚀 boards/route.ts GET userId:', userId);
+  // console.log('🚀 boards/route.ts GET userId:', userId);
   try {
-    const boards = await query<IBoard & RowDataPacket>(
-      'select id, userId, title, status from Board where userId = ? order by status asc',
+    const boards = await query(
+      'select * from Board where userId = ? order by status asc',
       [userId]
     );
-    console.log('🚀 boards/route.ts GET boards:', boards);
+    // console.log('🚀 boards/route.ts GET boards:', boards);
 
-    return NextResponse.json(boards);
+    return NextResponse.json({ boards });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'error!';
     // console.log('🚀 boards/route.ts GET message:', message);

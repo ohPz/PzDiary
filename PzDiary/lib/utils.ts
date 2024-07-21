@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 // const URL = process.env.NEXT_PUBLIC_API_URL;
-const URL = 'http://localhost:3000';
+const URL = 'http://localhost:3000/api';
 
 export const registUser = async (user: IUser) => {
   const res = await fetch(`${URL}/users`, {
@@ -84,7 +84,7 @@ export const getTodoOne = async (todoId: number) => {
 };
 
 export const getTodos = async (boardId: number) => {
-  const res = await fetch(`${URL}/boards?boardId=${boardId}`);
+  const res = await fetch(`${URL}/todos?boardId=${boardId}`);
   return res.json();
 };
 

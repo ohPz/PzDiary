@@ -6,8 +6,6 @@ import { useEffect, useState } from 'react';
 import { IBoard } from '@/lib/types';
 import { getBoards, updateBoard } from '@/lib/utils';
 
-// Todo: 눈에 보기 쉽게 파일 분리
-
 export default function SeContainer() {
   // Todo: user session에서 userId 가져오기
   const userId = 1;
@@ -16,11 +14,15 @@ export default function SeContainer() {
   const [boards, setBoards] = useState<IBoard[]>([]);
   useEffect(() => {
     const getBoardsList = async (_userId: number) => {
+      console.log('🚀 boards/route.ts GET getBoardsList:');
       const data = await getBoards(_userId);
       console.log('🚀 boards/route.ts GET data:', data);
       setBoards(data.boards);
     };
+
     if (userId) getBoardsList(userId);
+
+    console.log('🚀 boards/route.ts GET boards:', boards);
   }, []);
 
   const updateBoardIndex = async (

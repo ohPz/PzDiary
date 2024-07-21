@@ -11,12 +11,8 @@ import UserAvatar from '@/components/user-avatar';
 import HnContainer from '@/container/hn';
 import { LogOut as LogOutIcon, User } from 'lucide-react';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import { auth } from '@/lib/auth';
 
 export default async function Nav() {
-  const session = await auth();
-  if (!session || !session.user) redirect('/api/auth/signin');
   return (
     <div className='container mx-auto px-4 py-2 flex justify-between items-center'>
       <Link href='/'>
@@ -27,7 +23,7 @@ export default async function Nav() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button>
-              <UserAvatar imageUrl={session?.user?.image || ''} />
+              <UserAvatar />
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className='w-56'>

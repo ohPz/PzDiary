@@ -18,6 +18,7 @@ import SaveBoard from './saveBoard';
 type Props = { board: IBoard };
 
 export function Board({ board }: Props) {
+  console.log('🚀 getTodos:', board);
   // 해당 Board의 Todo 리스트 가져오기
   const [todos, setBoards] = useState<ITodo[]>([]);
   useEffect(() => {
@@ -25,6 +26,7 @@ export function Board({ board }: Props) {
       const data = await getTodos(boardId);
       setBoards(data.todos);
     };
+    console.log('🚀 getTodos:', board);
     if (board && board.id) getTodoList(board.id);
   }, [board]);
 
@@ -34,12 +36,12 @@ export function Board({ board }: Props) {
   ) => {
     const _todoOld = todos.find((todo) => todo.status == oldIndex);
     const _todoNew = todos.find((todo) => todo.status == newIndex);
-    console.log('🚀 updateTodoIndex _todoOld:', _todoOld);
-    console.log('🚀 updateTodoIndex _todoOld:', _todoOld?.id);
-    console.log('🚀 updateTodoIndex _todoOld:', _todoOld?.status);
-    console.log('🚀 updateTodoIndex _todoNew:', _todoNew);
-    console.log('🚀 updateTodoIndex _todoNew:', _todoNew?.id);
-    console.log('🚀 updateTodoIndex _todoNew:', _todoNew?.status);
+    // console.log('🚀 updateTodoIndex _todoOld:', _todoOld);
+    // console.log('🚀 updateTodoIndex _todoOld:', _todoOld?.id);
+    // console.log('🚀 updateTodoIndex _todoOld:', _todoOld?.status);
+    // console.log('🚀 updateTodoIndex _todoNew:', _todoNew);
+    // console.log('🚀 updateTodoIndex _todoNew:', _todoNew?.id);
+    // console.log('🚀 updateTodoIndex _todoNew:', _todoNew?.status);
 
     let todoOld: ITodo = {
       id: _todoOld?.id || 0,

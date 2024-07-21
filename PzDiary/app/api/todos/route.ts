@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;
   const boardId = searchParams.get('boardId');
-  // console.log('🚀 todos/route.ts GET boardId:', boardId);
+  console.log('🚀 todos/route.ts GET boardId:', boardId);
 
   // // 필터 및 검색
   // const todoCompletedDate = searchParams.get('todoCompletedDate'); // desc, asc
@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
 
   try {
     const todos = await query(
-      'select id, title, detail, todoCompletedDate, status from Todo where boardId = ? order by status asc',
+      'select * from Todo where boardId = ? order by status asc',
       [boardId]
     );
     // console.log('🚀 todos/route.ts GET todos:', todos);

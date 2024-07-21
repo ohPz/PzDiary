@@ -43,7 +43,7 @@ interface Session {
 
 const SessionContext = createContext<ContextProps>({
   session: {
-    loginUser: { id: 1, email: 'sy@sy.com', password: 'sy' },
+    loginUser: null,
     boards: [],
     todos: [],
   },
@@ -112,7 +112,7 @@ const reducer = (session: Session, action: Action) => {
 
 const SessionProvider = ({ children }: { children: ReactNode }) => {
   const [session, dispatch] = useReducer(reducer, {
-    loginUser: { id: 1, email: 'sy@sy.com', password: 'sy' },
+    loginUser: null,
     boards: [],
     todos: [],
   });

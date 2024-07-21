@@ -1,14 +1,15 @@
-import HnContainer from '@/container/hn';
+// import HnContainer from '@/container/hn';
 import SeContainer from '@/container/se';
-import SyContainter from '@/container/sy';
-import YjContainer from '@/container/yj';
-import YrContainer from '@/container/yr';
-import { SessionProvider } from '@/lib/session';
+
+// import YjContainer from '@/container/yj';
+// import YrContainer from '@/container/yr';
+// import SyContainter from '@/container/sy';
+// import { SessionProvider } from '@/lib/session';
 
 export default function Home() {
   return (
     <div className='flex flex-col w-full h-fit'>
-      {/* <div className='flex flex-col h-1/6 w-fit px-4 py-2'>
+      {/* <div className='flex flex-col h-1/2'>
         <div className='flex-1 bg-pink-200'>
           조영주
           <YjContainer />
@@ -24,16 +25,15 @@ export default function Home() {
       </div> */}
       <div className='flex flex-row px-4 py-2'>
         <SeContainer />
-        <SessionProvider>
-          <SyContainter />
-        </SessionProvider>
         {/* <div className='flex-1 bg-green-200'>
           이승은
           <SeContainer />
         </div>
         <div className='flex-1 bg-blue-200'>
           곽소영
-          <SyContainter />
+          <SessionProvider>
+            <SyContainter />
+          </SessionProvider>
         </div> */}
       </div>
     </div>

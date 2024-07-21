@@ -73,7 +73,7 @@ export function OpenBoard({
         <DialogHeader>
           <DialogTitle>{flag.type}</DialogTitle>
           <DialogDescription>
-            Make {flag.description} your board here. Click save when you're
+            Make {flag.description} your board here. Click save when you are
             done.
           </DialogDescription>
         </DialogHeader>
