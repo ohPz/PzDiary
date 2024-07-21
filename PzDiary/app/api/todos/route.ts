@@ -6,9 +6,10 @@ import { ITodo } from '@/lib/types';
 // add todo for login user
 export async function POST(req: NextRequest) {
   const { title, detail, boardId, todoCompletedDate } = await req.json();
+  let deadline = new Date(todoCompletedDate);
   const rows = await execute(
     'insert into Todo(title, detail, boardId, todoCompletedDate) values(?,?,?,?)',
-    [title, detail, boardId, todoCompletedDate]
+    [title, detail, boardId, deadline]
   );
   // console.log('🚀 todos/route.ts POST todo:', rows);
 
@@ -21,52 +22,62 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ todo });
 }
 
-// TODO: 필터와 서치 키워드 쿼리문 적용한 GET 코드 작성
-// 1. 필터 조건에 맞춰 정렬할 쿼리문 작성 :  날짜별, 중요도별, 수정순
-// select * from Todo order by todoCompletedDate desc 기한순
-// select * from Todo order by todoUpdateDate desc 수정순
-// select * from Todo order by priority desc 우선순위순
-
-// 2. 서치 키워드에 맞춰 정렬할 쿼리문 작성 : SELECT * FROM Todo title LIKE ‘%?%’ or detail LIKE ‘%?%’, title, detail;
-
 // 투두todo list for login user
 export async function GET(req: NextRequest) {
-  const { searchParams } = req.nextUrl;
-  const boardId = searchParams.get('boardId');
-  console.log('🚀 todos/route.ts GET boardId:', boardId);
-  // const conn = await mysql.createConnection(config);
-  // const conn = await pool.getConnection();
+  // search와 sort 포함 다루기 위한 내용
+  const getAll = () => {
+    const { searchParams } = req.nextUrl;
+    let result: { [k: string]: string } = {};
+    if (searchParams.size === 0) {
+      return {};
+    } else {
+      searchParams.forEach((value, key) => {
+        result[key] = value;
+      });
+      return result;
+    }
+  };
 
-  // // 필터 및 검색
-  // const todoCompletedDate = searchParams.get('todoCompletedDate'); // desc, asc
-  // const todoCompletedDateQuery =
-  //   'select * from Todo order by todoCompletedDate ';
-  // const todoUpdateDate = searchParams.get('todoUpdateDate');
-  // const todoUpdateDateQuery = 'select * from Todo order by todoUpdateDate ';
-  // const priority = searchParams.get('priority');
-  // const priorityQuery = 'select * from Todo order by priority ';
-  // const keyword = searchParams.get('keyword');
-  // const keywordQuery =
-  //   'SELECT * FROM Todo title LIKE ‘%?%’ or detail LIKE ‘%?%’';
+  const filterQuery = (keyword: string | string[]) => {
+    let query = '';
 
-  // const sortSearch = async (sql: string, param: string) => {
-  //   const [data] = await query(sql, [
-  //     param,
-  //   ]);
-  //   return data;
-  // };
+    switch (keyword) {
+      case 'boardId':
+        query = 'select * from Todo where boardId = ? order by status asc';
+        return query;
+      case 'todoCompletedDate':
+        query = 'select * from Todo order by todoCompletedDate ?';
+        return query;
+      case 'priority':
+        query = 'select * from Todo order by priority ?';
+        return query;
+      case 'todoUpdateDate':
+        query = 'select * from Todo order by todoUpdateDate ?';
+        return query;
+      case 'search':
+        query = 'select * FROM Todo title LIKE ‘%?%’ or detail LIKE ‘%?%’';
+        return query;
+      default:
+        return query;
+    }
+  };
+
+  const params = getAll();
+  // console.log('🚀 todos/route.ts GET getAll:', params);
+  // console.log('🚀 todos/route.ts GET getAll:', Object.keys(params)[0]);
+  // console.log('🚀 todos/route.ts GET getAll:', Object.values(params)[0]);
+
+  let sqlQuery = filterQuery(Object.keys(params));
+  let queryParams = Object.values(params);
 
   try {
-    const todos = await query(
-      'select id, title, detail, todoCompletedDate from Todo where boardId = ?',
-      [boardId]
-    );
+    const todos = await query(sqlQuery, [queryParams]);
     // console.log('🚀 todos/route.ts GET todos:', todos);
 
     return NextResponse.json({ todos });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'error!';
     console.table(message);
-    return NextResponse.json({ boardId, message }, { status: 500 });
+    return NextResponse.json({ queryParams, message }, { status: 500 });
   }
 }

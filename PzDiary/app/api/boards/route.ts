@@ -26,10 +26,11 @@ export async function GET(req: NextRequest) {
   const userId = searchParams.get('userId');
   // console.log('🚀 boards/route.ts GET userId:', userId);
   try {
-    const boards = await query('select id, title from Board where userId = ?', [
-      userId,
-    ]);
-    console.log('🚀 boards/route.ts GET boards:', boards);
+    const boards = await query(
+      'select * from Board where userId = ? order by status asc',
+      [userId]
+    );
+    // console.log('🚀 boards/route.ts GET boards:', boards);
 
     return NextResponse.json({ boards });
   } catch (error) {

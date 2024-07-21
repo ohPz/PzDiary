@@ -11,7 +11,7 @@ type Params = {
 export async function GET(req: NextRequest, { params: { boardId } }: Params) {
   try {
     const [board] = await query<IBoard & RowDataPacket>(
-      'select id, title from Board where id = ?',
+      'select id, title, status from Board where id = ?',
       [boardId]
     );
     // console.log('🚀 boards/[boardId]/route.ts GET board:', board);
@@ -48,10 +48,14 @@ export async function DELETE(
 }
 
 async function update(req: NextRequest, boardId: string) {
-  const { title } = await req.json();
+  const { title, status } = await req.json();
 
   try {
-    await execute('update Board set title = ? where id = ?', [title, boardId]);
+    await execute('update Board set title = ?, status = ? where id = ?', [
+      title,
+      status,
+      boardId,
+    ]);
     const [board] = await query('select * from Board where id = ?', [boardId]);
     // console.log('🚀 boards/[boardId]/route.ts update board:', board);
     return NextResponse.json({ board });

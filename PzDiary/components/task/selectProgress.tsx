@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { IBoard, ITodo } from '@/lib/types';
 import {
   Select,
   SelectContent,
@@ -9,9 +10,17 @@ import {
   SelectValue,
 } from '../ui/select';
 
-export const SelectProgress = () => {
+type Props = {
+  board?: number;
+  todo?: number;
+};
+
+export const SelectProgress = ({ board, todo }: Props) => {
   const [value, setValue] = useState('Select Progress');
+
   console.log(`SelectProgress: ${value}`);
+  console.log(`SelectProgress: ${board || 1} ${todo || 0}`);
+
   return (
     <Select onValueChange={(value) => setValue(value)}>
       <SelectTrigger className='w-[180px]'>
