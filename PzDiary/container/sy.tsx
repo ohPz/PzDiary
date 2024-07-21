@@ -2,8 +2,8 @@
 
 import { Board } from '@/components/board/board_SY';
 // export default SyContainer;
-import { OpenBoard } from '@/components/board/saveBoard_SY';
-import { OpenTask } from '@/components/task/saveTask_SY';
+import { OpenBoard } from '@/components/board/openBoard_SY';
+import { OpenTask } from '@/components/task/openTask_SY';
 import { Task } from '@/components/task/task_SY';
 import { useSession } from '@/lib/session';
 import { ITodo } from '@/lib/types';
@@ -16,14 +16,14 @@ export default function SyContainter() {
   return (
     <>
       <div className='flex flex-row gap-3'>
-        <div className='relative h-full w-full'>
+        <div className='relative h-full flex overflow-auto'>
           <div
-            className='fixed right-0 rotate-180'
+            className='fixed h-full w-6 right-0 rotate-180'
             style={{ writingMode: 'vertical-rl' }}
           >
             <OpenBoard isCreate={true} />
           </div>
-          <div className='flex flex-row'>
+          <div className='h-full flex flex-row overflow-y-auto'>
             {boards.map((_board) => (
               <Board key={_board.id} board={_board}>
                 {todos.map((_todo) => {
