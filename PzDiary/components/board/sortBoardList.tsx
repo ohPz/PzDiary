@@ -14,6 +14,17 @@ export const SortBoardList = () => {
 
   const selectOption = (option: string) => {
     setSelectedOption(option);
+
+    let _params = selectedOption.split('::');
+    console.log(`selectedOption : ${_params}`);
+    const dataFetching = async (keyword: string[]) => {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/todos?${keyword[0]}=${keyword[1]}`
+      );
+      return res.json();
+    };
+
+    dataFetching(_params);
   };
 
   return (
@@ -24,16 +35,27 @@ export const SortBoardList = () => {
       <SelectContent>
         <SelectGroup>
           <SelectLabel>기한</SelectLabel>
-          <SelectItem value='기한없음'>기한 없음</SelectItem>
-          <SelectItem value='오래된순'>오래된순</SelectItem>
-          <SelectItem value='최근순'>최근순</SelectItem>
+          <SelectItem id='todoCompletedDate' value='todoCompletedDate::asc'>
+            오래된순
+          </SelectItem>
+          <SelectItem id='todoCompletedDate' value='todoCompletedDate::desc'>
+            최근순
+          </SelectItem>
         </SelectGroup>
         <SelectGroup>
           <SelectLabel>우선순위</SelectLabel>
-          <SelectItem value='우선순위없음'>우선순위 없음</SelectItem>
-          <SelectItem value='상'>상</SelectItem>
-          <SelectItem value='중'>중</SelectItem>
-          <SelectItem value='하'>하</SelectItem>
+          <SelectItem id='priority' value='priority::0'>
+            우선순위 없음
+          </SelectItem>
+          <SelectItem id='priority' value='priority::1'>
+            상
+          </SelectItem>
+          <SelectItem id='priority' value='priority::2'>
+            중
+          </SelectItem>
+          <SelectItem id='priority' value='priority::3'>
+            하
+          </SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>

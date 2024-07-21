@@ -1,7 +1,7 @@
 'use client';
 
 import SaveBoard from '@/components/board/saveBoard';
-import { SortBoardList } from '@/components/board/sortBoardList';
+// import { SortBoardList } from '@/components/board/sortBoardList';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useState, ChangeEvent } from 'react';
@@ -39,17 +39,22 @@ export default function HnContainer() {
       >
         +Add Board
       </SaveBoard>
-      <Input
-        type='text'
-        name='detail'
-        value={search}
-        onChange={onChange}
-        placeholder='검색'
-      />
-      <Button onClick={onSearch} size={'sm'}>
-        검색
-      </Button>
-      <SortBoardList />
+      <form
+        className='flex gap-3 justify-center items-center'
+        onSubmit={onSearch}
+      >
+        <Input
+          type='text'
+          name='search'
+          value={search}
+          onChange={onChange}
+          placeholder='검색'
+        />
+        <Button size={'sm'} type='submit'>
+          검색
+        </Button>
+      </form>
+      {/* <SortBoardList /> */}
     </div>
   );
 }

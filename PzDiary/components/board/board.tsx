@@ -88,13 +88,13 @@ export function Board({ board }: Props) {
           }}
         >
           {todos?.map((todo: ITodo, i: number) => (
-            <Task key={i} todo={todo} boardTitle={board.title} />
+            <Task key={i} todo={todo} boardId={board.id} />
           ))}
         </ReactSortable>
       </CardContent>
       <CardFooter>
         <SaveTask
-          board={board}
+          boardId={board.id}
           isCreate={true}
           todo={{
             id: 0,

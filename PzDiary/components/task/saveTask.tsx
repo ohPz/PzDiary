@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useRef, useState } from 'react';
-import { IBoard, ITodo } from '@/lib/types';
+import { ITodo } from '@/lib/types';
 import { creatTodo, deleteTodo, updateTodo } from '@/lib/utils';
 import { Button } from '../ui/button';
 import {
@@ -23,11 +23,11 @@ import { SelectProgress } from './selectProgress';
 export function SaveTask({
   todo,
   isCreate = false,
-  board,
+  boardId,
 }: {
   todo: ITodo;
   isCreate?: boolean;
-  board?: IBoard;
+  boardId: number;
 }) {
   const titleRef = useRef<HTMLInputElement>(null);
   const detailRef = useRef<HTMLTextAreaElement>(null);
@@ -42,7 +42,7 @@ export function SaveTask({
 
   const doSave = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    todo.boardId = board?.id || 0;
+    todo.boardId = boardId || 0;
     todo.title = titleRef.current?.value || '';
     todo.detail = detailRef.current?.value || '';
     todo.todoCompletedDate = date || new Date();

@@ -1,5 +1,4 @@
 // import HnContainer from '@/container/hn';
-import { SaveTask } from '@/components/task/saveTask';
 import SeContainer from '@/container/se';
 
 // import YjContainer from '@/container/yj';
@@ -26,6 +25,7 @@ export default function Home() {
       </div> */}
       <div className='flex flex-row h-full px-4 py-2'>
         <SeContainer />
+
         {/* <div className='flex-1 bg-green-200'>
           이승은
           <SeContainer />

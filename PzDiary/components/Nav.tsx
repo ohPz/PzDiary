@@ -11,7 +11,6 @@ import UserAvatar from '@/components/user-avatar';
 import { LogOut as LogOutIcon, User } from 'lucide-react';
 import Link from 'next/link';
 import { ReactNode } from 'react';
-import SaveBoard from './board/saveBoard';
 
 export default async function Nav({ children }: { children: ReactNode }) {
   return (
