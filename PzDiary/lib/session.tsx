@@ -17,7 +17,10 @@ type Action =
   | { type: 'logout'; payload: {} }
   | { type: 'addBoard'; payload: IBoard }
   | { type: 'saveBoard'; payload: IBoard }
-  | { type: 'removeBoard'; payload: { id: number } };
+  | { type: 'removeBoard'; payload: { id: number } }
+  | { type: 'addTodo'; payload: ITodo }
+  | { type: 'saveTodo'; payload: ITodo }
+  | { type: 'removeTodo'; payload: { id: number } };
 
 // for provider's value
 interface ContextProps {
@@ -27,23 +30,31 @@ interface ContextProps {
   addBoard: (board: IBoard) => void;
   saveBoard: (board: IBoard) => void;
   removeBoard: (id: number) => void;
+  addTodo: (todo: ITodo) => void;
+  saveTodo: (todo: ITodo) => void;
+  removeTodo: (id: number) => void;
 }
 
 interface Session {
   loginUser: IUser | null;
   boards: IBoard[];
+  todos: ITodo[];
 }
 
 const SessionContext = createContext<ContextProps>({
   session: {
     loginUser: { id: 1, email: 'sy@sy.com', password: 'sy' },
     boards: [],
+    todos: [],
   },
   login: (user: IUser) => {},
   logout: () => {},
   addBoard: (board: IBoard) => {},
   saveBoard: (board: IBoard) => {},
   removeBoard: (id: number) => {},
+  addTodo: (todo: ITodo) => {},
+  saveTodo: (todo: ITodo) => {},
+  removeTodo: (id: number) => {},
 });
 
 const reducer = (session: Session, action: Action) => {
@@ -59,22 +70,37 @@ const reducer = (session: Session, action: Action) => {
     case 'removeBoard':
       return {
         ...session,
-        books: [
+        boards: [
           ...session.boards.filter((_board) => _board.id !== payload?.id),
         ],
       };
 
     case 'addBoard':
-      console.table(payload);
-      // 완전히 추가되기 전의 session.cart가 spread되므로 1번만 추가된 것 처럼 보임!
       return { ...session, boards: [...session.boards, { ...payload }] };
 
     case 'saveBoard':
-      console.table(payload);
       return {
         ...session,
         boards: session.boards.map((_board) => {
           if (_board.id !== payload.id) return _board;
+          return { ...payload };
+        }),
+      };
+
+    case 'removeTodo':
+      return {
+        ...session,
+        todos: [...session.todos.filter((_todo) => _todo.id !== payload?.id)],
+      };
+
+    case 'addTodo':
+      return { ...session, todos: [...session.todos, { ...payload }] };
+
+    case 'saveTodo':
+      return {
+        ...session,
+        todos: session.todos.map((_todo) => {
+          if (_todo.id !== payload.id) return _todo;
           return { ...payload };
         }),
       };
@@ -88,6 +114,7 @@ const SessionProvider = ({ children }: { children: ReactNode }) => {
   const [session, dispatch] = useReducer(reducer, {
     loginUser: { id: 1, email: 'sy@sy.com', password: 'sy' },
     boards: [],
+    todos: [],
   });
 
   const logout = useCallback(
@@ -111,6 +138,18 @@ const SessionProvider = ({ children }: { children: ReactNode }) => {
     dispatch({ type: 'saveBoard', payload: board });
   }, []);
 
+  const removeTodo = useCallback((id: number) => {
+    dispatch({ type: 'removeTodo', payload: { id } });
+  }, []);
+
+  const addTodo = useCallback((todo: ITodo) => {
+    dispatch({ type: 'addTodo', payload: todo });
+  }, []);
+
+  const saveTodo = useCallback((todo: ITodo) => {
+    dispatch({ type: 'saveTodo', payload: todo });
+  }, []);
+
   useEffect(() => {
     // (async function () {
     //   const authSession = await auth();
@@ -127,6 +166,9 @@ const SessionProvider = ({ children }: { children: ReactNode }) => {
         removeBoard,
         saveBoard,
         addBoard,
+        removeTodo,
+        saveTodo,
+        addTodo,
       }}
     >
       {children}

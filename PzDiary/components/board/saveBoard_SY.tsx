@@ -11,7 +11,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSession } from '@/lib/session';
 import { IBoard } from '@/lib/types';
 
@@ -44,14 +44,18 @@ export function OpenBoard({
   const { addBoard, saveBoard } = useSession();
   const add = () => {
     const title = titleRef.current?.value || '';
-    const board = { id: 17, userId: 1, title: title };
-    addBoard(board);
+    const newBoard = { id: Math.random(), userId: 1, title: title };
+    addBoard(newBoard);
   };
 
   const save = () => {
     const title = titleRef.current?.value || '';
-    const board = { id: 17, userId: 1, title: title };
-    saveBoard(board);
+    const editBoard = {
+      id: board?.id || 1,
+      userId: 1,
+      title: title,
+    };
+    saveBoard(editBoard);
   };
 
   return (

@@ -3,7 +3,7 @@
 // import { Todo, TodoRowData, Book, BookRowData, UserRowData } from '@/lib/types';
 import { execute, query } from './db';
 
-export const createBoard = async (
+export const createBoardDB = async (
   id: number,
   userId: number,
   title: String
