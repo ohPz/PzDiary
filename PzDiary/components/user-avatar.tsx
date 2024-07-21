@@ -10,7 +10,7 @@ export default async function UserAvatar() {
       <img
         src={session.user.image || ''}
         alt={session.user.name || ''}
-        className='rounded-full'
+        className='rounded-full w-15 h-15'
       />
     </div>
   );

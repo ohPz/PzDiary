@@ -1,5 +1,24 @@
 @api=http://localhost:3000/api
 
+
+
+### get users
+GET {{api}}/regist?Id=1
+
+
+# insert user testing
+###
+POST {{api}}/boards
+
+{
+  "userId": 1,
+  "title": "Test Book",
+  "status": 0
+}
+
+
+
+
 ### get boards
 GET {{api}}/boards?userId=1
 
