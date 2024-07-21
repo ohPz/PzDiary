@@ -8,8 +8,25 @@ import {
 import UserAvatar from '@/components/user-avatar';
 import { LogOut as LogOutIcon, User } from 'lucide-react';
 import Link from 'next/link';
+import { auth } from '@/lib/auth';
 
-export default function Nav() {
+export default async function Nav() {
+  const session = await auth();
+
+  // 세션이 없으면 Nav 에 로고만 출력 (테스트용)
+  if (session?.user)
+    return (
+      <div className='container mx-auto px-4 py-2 flex justify-between items-center bg-slate-800 shadow'>
+        <Link href='/' className='text-4xl text-white'>
+          PzDiary
+        </Link>
+        <Link href='/api/auth/signin' className=' text-white'>
+          Sign In (테스트용)
+        </Link>
+      </div>
+    );
+
+  // 세션이 있으면 아래를 출력
   return (
     <>
       <div className='container mx-auto px-4 py-2 flex justify-between items-center'>
