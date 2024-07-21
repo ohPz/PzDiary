@@ -6,9 +6,10 @@ import { ITodo } from '@/lib/types';
 // add todo for login user
 export async function POST(req: NextRequest) {
   const { title, detail, boardId, todoCompletedDate } = await req.json();
+  let deadline = new Date(todoCompletedDate);
   const rows = await execute(
     'insert into Todo(title, detail, boardId, todoCompletedDate) values(?,?,?,?)',
-    [title, detail, boardId, todoCompletedDate]
+    [title, detail, boardId, deadline]
   );
   // console.log('🚀 todos/route.ts POST todo:', rows);
 
@@ -33,9 +34,7 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;
   const boardId = searchParams.get('boardId');
-  console.log('🚀 todos/route.ts GET boardId:', boardId);
-  // const conn = await mysql.createConnection(config);
-  // const conn = await pool.getConnection();
+  // console.log('🚀 todos/route.ts GET boardId:', boardId);
 
   // // 필터 및 검색
   // const todoCompletedDate = searchParams.get('todoCompletedDate'); // desc, asc
@@ -50,15 +49,13 @@ export async function GET(req: NextRequest) {
   //   'SELECT * FROM Todo title LIKE ‘%?%’ or detail LIKE ‘%?%’';
 
   // const sortSearch = async (sql: string, param: string) => {
-  //   const [data] = await query(sql, [
-  //     param,
-  //   ]);
+  //   const [data] = await query(sql, [param]);
   //   return data;
   // };
 
   try {
     const todos = await query(
-      'select id, title, detail, todoCompletedDate from Todo where boardId = ?',
+      'select id, title, detail, todoCompletedDate, status from Todo where boardId = ? order by status asc',
       [boardId]
     );
     // console.log('🚀 todos/route.ts GET todos:', todos);

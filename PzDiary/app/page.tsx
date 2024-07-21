@@ -7,32 +7,34 @@ import { SessionProvider } from '@/lib/session';
 
 export default function Home() {
   return (
-    <div className='flex flex-col w-screen h-screen'>
-      <div className='flex flex-col h-1/2'>
+    <div className='flex flex-col w-full h-fit'>
+      {/* <div className='flex flex-col h-1/6 w-fit px-4 py-2'>
         <div className='flex-1 bg-pink-200'>
           조영주
-          {/* <YjContainer /> */}
+          <YjContainer />
         </div>
         <div className='flex-1 bg-yellow-200'>
           김하늘
-          {/* <HnContainer /> */}
+          <HnContainer />
         </div>
         <div className='flex-1 bg-red-200'>
           임이랑
-          {/* <YrContainer /> */}
+          <YrContainer />
         </div>
-      </div>
-      <div className='flex flex-row h-1/2'>
-        <div className='flex-1 bg-green-200'>
+      </div> */}
+      <div className='flex flex-row px-4 py-2'>
+        <SeContainer />
+        <SessionProvider>
+          <SyContainter />
+        </SessionProvider>
+        {/* <div className='flex-1 bg-green-200'>
           이승은
-          {/* <SeContainer /> */}
+          <SeContainer />
         </div>
         <div className='flex-1 bg-blue-200'>
           곽소영
-          <SessionProvider>
-            <SyContainter />
-          </SessionProvider>
-        </div>
+          <SyContainter />
+        </div> */}
       </div>
     </div>
   );

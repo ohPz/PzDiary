@@ -1,5 +1,5 @@
 export type IUser = {
-  id: number;
+  id?: number;
   email: string;
   password?: string;
 };
@@ -7,6 +7,7 @@ export type IBoard = {
   id: number;
   userId: number;
   title: string;
+  status?: number; // index
 };
 export type ITodo = {
   id: number;
@@ -14,9 +15,5 @@ export type ITodo = {
   title: string;
   detail: string;
   todoCompletedDate: Date;
-};
-
-export type IBoardView = {
-  id: number;
-  title: string;
+  status?: number; // index
 };

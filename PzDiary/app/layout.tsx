@@ -21,7 +21,6 @@ export default function RootLayout({
         <header>
           <Nav />
         </header>
-
         <main>{children}</main>
       </body>
     </html>
