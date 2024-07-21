@@ -18,7 +18,7 @@ import SaveBoard from './saveBoard';
 type Props = { board: IBoard };
 
 export function Board({ board }: Props) {
-  console.log('🚀 getTodos:', board);
+  // console.log('🚀 getTodos:', board);
   // 해당 Board의 Todo 리스트 가져오기
   const [todos, setBoards] = useState<ITodo[]>([]);
   useEffect(() => {
@@ -26,7 +26,7 @@ export function Board({ board }: Props) {
       const data = await getTodos(boardId);
       setBoards(data.todos);
     };
-    console.log('🚀 getTodos:', board);
+    // console.log('🚀 getTodos:', board);
     if (board && board.id) getTodoList(board.id);
   }, [board]);
 
@@ -94,7 +94,7 @@ export function Board({ board }: Props) {
       </CardContent>
       <CardFooter>
         <SaveTask
-          boardTitle={board.title}
+          board={board}
           isCreate={true}
           todo={{
             id: 0,

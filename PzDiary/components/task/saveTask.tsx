@@ -2,10 +2,9 @@
 
 import { useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useRef, useState } from 'react';
-import { ITodo } from '@/lib/types';
+import { IBoard, ITodo } from '@/lib/types';
 import { creatTodo, deleteTodo, updateTodo } from '@/lib/utils';
 import { Button } from '../ui/button';
-import { Calendar } from '../ui/calendar';
 import {
   Dialog,
   DialogContent,
@@ -18,16 +17,17 @@ import {
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Textarea } from '../ui/textarea';
+import { DatePicker } from './datePicker';
 import { SelectProgress } from './selectProgress';
 
 export function SaveTask({
   todo,
   isCreate = false,
-  boardTitle,
+  board,
 }: {
   todo: ITodo;
   isCreate?: boolean;
-  boardTitle: string;
+  board?: IBoard;
 }) {
   const titleRef = useRef<HTMLInputElement>(null);
   const detailRef = useRef<HTMLTextAreaElement>(null);
@@ -42,27 +42,21 @@ export function SaveTask({
 
   const doSave = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    todo.boardId =
-      progressRef.current?.value == '대기'
-        ? 1
-        : progressRef.current?.value == '진행'
-          ? 2
-          : 3;
+    todo.boardId = board?.id || 0;
     todo.title = titleRef.current?.value || '';
     todo.detail = detailRef.current?.value || '';
     todo.todoCompletedDate = date || new Date();
-    console.log('date');
     console.log('todo.todoCompletedDate', todo.todoCompletedDate);
 
     isCreate ? creatTodo(todo) : updateTodo(todo.id, todo);
-    router.push('/');
+    router.back();
   };
 
   const doDelete = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const todoId = todo.id;
     deleteTodo(todoId);
-    router.push('/');
+    router.back();
   };
 
   type Iflag = {
@@ -146,15 +140,7 @@ export function SaveTask({
           <Label htmlFor='todoCompletedDate' className='text-right'>
             Deadline
           </Label>
-          <Calendar
-            id='todoCompletedDate'
-            mode='single'
-            selected={date}
-            onSelect={setDate}
-            className='rounded-md'
-            showOutsideDays={true}
-            initialFocus={true}
-          />
+          <DatePicker />
         </div>
         <DialogFooter>
           {!isCreate ? (

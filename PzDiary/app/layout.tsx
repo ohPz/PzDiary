@@ -1,4 +1,5 @@
 import Nav from '@/components/Nav';
+import HnContainer from '@/container/hn';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -19,7 +20,9 @@ export default function RootLayout({
     <html lang='en'>
       <body className={inter.className}>
         <header>
-          <Nav />
+          <Nav>
+            <HnContainer />
+          </Nav>
         </header>
         <main>{children}</main>
       </body>

@@ -8,17 +8,18 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import UserAvatar from '@/components/user-avatar';
-import HnContainer from '@/container/hn';
 import { LogOut as LogOutIcon, User } from 'lucide-react';
 import Link from 'next/link';
+import { ReactNode } from 'react';
+import SaveBoard from './board/saveBoard';
 
-export default async function Nav() {
+export default async function Nav({ children }: { children: ReactNode }) {
   return (
     <div className='container mx-auto px-4 py-2 flex justify-between items-center'>
       <Link href='/'>
         <p className='text-xl'>PzDiary</p>
       </Link>
-      <HnContainer />
+      {children}
       <div className='rounded-full'>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -33,7 +34,6 @@ export default async function Nav() {
             </DropdownMenuItem>
             <DropdownMenuItem className='justify-center'>
               <LogOutIcon className='mr-2 h-4 w-4' />
-
               <SignOut />
             </DropdownMenuItem>
           </DropdownMenuContent>

@@ -10,11 +10,16 @@ import {
 } from '../ui/select';
 
 export const SortBoardList = () => {
-  const [value, setValue] = useState('Sort Board List');
+  const [selectedOption, setSelectedOption] = useState<string>('정렬');
+
+  const selectOption = (option: string) => {
+    setSelectedOption(option);
+  };
+
   return (
-    <Select onValueChange={(value) => setValue(value)} value={value}>
+    <Select onValueChange={selectOption} defaultValue={selectedOption}>
       <SelectTrigger className='w-[180px]'>
-        <SelectValue placeholder='Sort Board List' defaultValue={value} />
+        <SelectValue placeholder='정렬' />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>

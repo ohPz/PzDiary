@@ -54,7 +54,7 @@ export default function SeContainer() {
 
   return (
     <ReactSortable
-      className='flex flex-row gap-5 h-fit w-fit px-4 py-2'
+      className='flex flex-row gap-5 w-fit p-4 m-auto'
       group='shared'
       animation={0}
       delay={1}
