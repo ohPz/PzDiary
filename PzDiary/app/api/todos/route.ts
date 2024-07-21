@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;
   const boardId = searchParams.get('boardId');
-  // console.log('🚀 todos/route.ts GET boardId:', boardId);
+  console.log('🚀 todos/route.ts GET boardId:', boardId);
   // const conn = await mysql.createConnection(config);
   // const conn = await pool.getConnection();
 

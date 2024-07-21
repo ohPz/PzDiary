@@ -6,17 +6,17 @@ import { IBoard } from '@/lib/types';
 // add board for login user
 export async function POST(req: NextRequest) {
   const { title, userId } = await req.json();
-  // console.log('🚀 boards/route.ts POST req:', title, userId);
+  console.log('🚀 boards/route.ts POST req:', title, userId);
   const rows = await execute('insert into Board(title, userId) values(?,?)', [
     title,
     userId,
   ]);
-  // console.log('🚀 boards/route.ts POST rows:', rows);
+  console.log('🚀 boards/route.ts POST rows:', rows);
   const [board] = await query<IBoard & RowDataPacket>(
     'select * from Board where id = ?',
     [rows.insertId]
   );
-  // console.log('🚀 boards/route.ts POST board:', board);
+  console.log('🚀 boards/route.ts POST board:', board);
   return NextResponse.json({ board });
 }
 
@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
     const boards = await query('select id, title from Board where userId = ?', [
       userId,
     ]);
-    // console.log('🚀 boards/route.ts GET boards:', boards);
+    console.log('🚀 boards/route.ts GET boards:', boards);
 
     return NextResponse.json({ boards });
   } catch (error) {
