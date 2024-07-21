@@ -9,7 +9,7 @@ type Params = {
 export async function GET(req: NextRequest, { params: { todoId } }: Params) {
   try {
     const [todo] = await query(
-      'select title, detail, boardId, todoCompletedDate, status from Todo where id = ?',
+      'select title, detail, boardId, todoCompletedDate, status, priority from Todo where id = ?',
       [todoId]
     );
     // console.log('🚀 todos/[todoId]/route.ts GET todo:', todo);
@@ -43,13 +43,14 @@ export async function DELETE(req: NextRequest, { params: { todoId } }: Params) {
 }
 
 async function update(req: NextRequest, todoId: string) {
-  const { title, detail, todoCompletedDate, status } = await req.json();
+  const { title, detail, todoCompletedDate, status, priority } =
+    await req.json();
   let deadline = new Date(todoCompletedDate);
 
   try {
     await query(
-      'update Todo set title = ?, detail = ?, todoCompletedDate = ?, status = ? where id = ?',
-      [title, detail, deadline, status, todoId]
+      'update Todo set title = ?, detail = ?, todoCompletedDate = ?, status = ?, priority = ? where id = ?',
+      [title, detail, deadline, status, priority, todoId]
     );
 
     const [todo] = await query('select * from Todo where id = ?', [todoId]);

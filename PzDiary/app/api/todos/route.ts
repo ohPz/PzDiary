@@ -75,10 +75,9 @@ export async function GET(req: NextRequest) {
   // let queryParams = Object.values(params)[0];
 
   try {
-    const todos = await query(
-      'select id, title, detail, todoCompletedDate, status from Todo where boardId = ? order by status asc',
-      [boardId]
-    );
+    const todos = await query('select * from Todo where boardId = ?', [
+      boardId,
+    ]);
     // console.log('🚀 todos/route.ts GET todos:', todos);
 
     return NextResponse.json({ todos });

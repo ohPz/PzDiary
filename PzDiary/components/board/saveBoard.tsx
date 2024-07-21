@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import { IBoard } from '@/lib/types';
 import { createBoard, deleteBoard, updateBoard } from '@/lib/utils';
 import { Button } from '../ui/button';
@@ -54,13 +54,19 @@ export default function SaveBoard({
     };
   }
 
-  const titleRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const titleRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setIsOpen(isOpen);
+  }, []);
 
   const doSave = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     board.title = titleRef.current?.value || '';
     isCreate ? createBoard(board) : updateBoard(board.id, board);
+    setIsOpen(!isOpen);
     router.push('/');
   };
 
@@ -69,6 +75,7 @@ export default function SaveBoard({
     const boardId = board.id;
     if (window.confirm('정말 삭제하시겠습니까?')) {
       deleteBoard(boardId);
+      setIsOpen(!isOpen);
     } else {
       alert('삭제되었습니다.');
     }
@@ -76,7 +83,7 @@ export default function SaveBoard({
   };
 
   return (
-    <Dialog>
+    <Dialog onOpenChange={(isOpen) => setIsOpen(!isOpen)}>
       <DialogTrigger asChild>
         <Button variant={flag.buttonVariant} className={flag.buttonClassName}>
           {children}

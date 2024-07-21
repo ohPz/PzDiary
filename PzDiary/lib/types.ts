@@ -15,5 +15,6 @@ export type ITodo = {
   title: string;
   detail: string;
   todoCompletedDate: Date;
+  priority?: number;
   status?: number; // index
 };
