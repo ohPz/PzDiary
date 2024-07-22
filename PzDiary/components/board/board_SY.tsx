@@ -7,7 +7,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '../cardBoard';
+} from '../ui/card';
 
 export function Board({
   board,
