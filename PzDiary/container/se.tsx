@@ -29,7 +29,7 @@ export default function SeContainer() {
 
   useEffect(() => {
     if (!!user && !!user?.user?.id) setUserId(+user?.user?.id);
-  }, [user]);
+  }, []);
 
   const updateBoardIndex = async (
     oldIndex: number | undefined,
