@@ -8,15 +8,7 @@ export async function GET(req: NextRequest) {
   const session = await auth();
   console.log('🚀  session:', session);
   const { searchParams } = req.nextUrl;
-  const id = searchParams.get('id');
-
-  try {
-    const user = await query('select id from User where Id = ?', [
-      Id,
-    ]);
-    console.log('🚀 boards/route.ts GET boards:', );
-
-
+  const email = searchParams.get('email');
   const user = await getUserByEmail(email);
   if (!user) {
     return NextResponse.json(
@@ -29,14 +21,11 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const { nickname, email, passwd } = await req.json();
-  console.table({ nickname, email, passwd });
+  const { email } = await req.json();
+  console.table({ email });
 
   try {
-    const rsh = await execute(
-      'insert into User(nickname, email, passwd) values(?,?,?)',
-      [nickname, email, passwd]
-    );
+    const rsh = await execute('insert into User(email) values(?)', [email]);
 
     const { insertId: newer } = rsh;
 
@@ -54,4 +43,4 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ error }, { status: 500 });
   }
-}}
+}

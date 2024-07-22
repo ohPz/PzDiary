@@ -20,7 +20,12 @@ export default async function MyPage() {
 
   return (
     <div className='flex flex-col mx-auto max-w-md'>
-      <h1 className='text-3xl text-green-500 my-10'>My Profile</h1>
+      <h1
+        className='text-3xl bg-slate-700 text-white
+       my-10'
+      >
+        My Profile
+      </h1>
       <div className='flex gap-5'>
         <img
           src={image || ''}
@@ -35,10 +40,10 @@ export default async function MyPage() {
           <Button variant='ghost'>SignOut</Button>
         </form>
       </div>
-      {/* <hr className='mt-10' />
+      <hr className='mt-10' />
       <pre className='text-sm text-slate-400'>
         {JSON.stringify(session, null, '  ')}
-      </pre> */}
+      </pre>
     </div>
   );
 }

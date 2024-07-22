@@ -3,19 +3,17 @@
 
 
 ### get users
-GET {{api}}/regist?Id=1
+GET {{api}}/regist?email=sherrygelato.lab@gmail.com
+
 
 
 # insert user testing
 ###
-POST {{api}}/boards
+POST {{api}}/regist 
 
 {
-  "userId": 1,
-  "title": "Test Book",
-  "status": 0
+  "email" : "yj.sara.cho@gmail.com"
 }
-
 
 
 
