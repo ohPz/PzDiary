@@ -22,13 +22,13 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;
   const email = searchParams.get('email');
-  console.log('🚀 users/[email]/route.ts GET email:', email);
+  // console.log('🚀 users/[email]/route.ts GET email:', email);
   try {
     const [userInfo] = await query(
       'select id, email from User where email = ?',
       [email]
     );
-    console.log('🚀 users/[email]/route.ts GET userInfo:', userInfo);
+    // console.log('🚀 users/[email]/route.ts GET userInfo:', userInfo);
 
     return NextResponse.json(userInfo);
   } catch (error) {

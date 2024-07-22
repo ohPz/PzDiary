@@ -1,3 +1,4 @@
+import AuthProvider from '@/components/AuthProvider';
 import Nav from '@/components/Nav';
 import HnContainer from '@/container/hn';
 import type { Metadata } from 'next';
@@ -21,7 +22,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <header>
           <Nav>
-            <HnContainer />
+            <AuthProvider>
+              <HnContainer />
+            </AuthProvider>
           </Nav>
         </header>
         <main>{children}</main>

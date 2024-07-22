@@ -1,17 +1,19 @@
 'use client';
 
 import { Board } from '@/components/board/board';
+import { useSession } from 'next-auth/react';
 import { ReactSortable } from 'react-sortablejs';
 import { useEffect, useState } from 'react';
 import { IBoard } from '@/lib/types';
 import { getBoards, updateBoard } from '@/lib/utils';
 
 export default function SeContainer() {
-  // Todo: user session에서 userId 가져오기
-  const userId = 1;
+  const { data: user } = useSession();
+  console.log('🚀 HnContainer:', user?.user);
 
   // 해당 사용자의 Board id, title 리스트 가져오기
   const [boards, setBoards] = useState<IBoard[]>([]);
+  const [userId, setUserId] = useState<number>(1);
   useEffect(() => {
     const getBoardsList = async (_userId: number) => {
       console.log('🚀 boards/route.ts GET getBoardsList:');
@@ -20,10 +22,14 @@ export default function SeContainer() {
       setBoards(data.boards);
     };
 
-    if (userId) getBoardsList(userId);
+    if (userId) getBoardsList(+userId);
 
     console.log('🚀 boards/route.ts GET boards:', boards);
   }, []);
+
+  useEffect(() => {
+    if (!!user && !!user?.user?.id) setUserId(+user?.user?.id);
+  }, [user]);
 
   const updateBoardIndex = async (
     oldIndex: number | undefined,
@@ -54,7 +60,7 @@ export default function SeContainer() {
 
   return (
     <ReactSortable
-      className='flex flex-row gap-5 w-fit p-4 m-auto'
+      className='flex flex-row gap-5 w-fit p-4 m-auto '
       group='shared'
       animation={0}
       delay={1}

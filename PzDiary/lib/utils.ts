@@ -6,8 +6,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// const URL = process.env.NEXT_PUBLIC_API_URL;
-const URL = 'http://localhost:3000/api';
+const URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const registUser = async (user: IUser) => {
   const res = await fetch(`${URL}/users`, {

@@ -34,7 +34,7 @@ export const {
     },
     session: async ({ session }) => {
       if (!session.user.id) {
-        console.log('google - session>>', session);
+        // console.log('google - session>>', session);
 
         // 세션에 user id 저장하기
         const { id } = await getUserInfo(session.user.email);

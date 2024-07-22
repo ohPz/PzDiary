@@ -1,9 +1,11 @@
 'use client';
 
 import SaveBoard from '@/components/board/saveBoard';
+import { SortBoardList } from '@/components/board/sortBoardList';
 // import { SortBoardList } from '@/components/board/sortBoardList';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useSession } from 'next-auth/react';
 import { useState, ChangeEvent } from 'react';
 
 type Todo = {
@@ -12,8 +14,8 @@ type Todo = {
 };
 
 export default function HnContainer() {
-  // Todo: userId 체크해서 적용하기
-  const userId = 1;
+  const { data: user } = useSession();
+  // console.log('🚀 HnContainer:', user?.user);
 
   const [todoDetail, setTodoDetail] = useState<Todo[]>([]);
   const [search, setSearch] = useState<string>('');
@@ -35,7 +37,7 @@ export default function HnContainer() {
     <div className='flex gap-3 justify-center items-center'>
       <SaveBoard
         isCreate={true}
-        board={{ id: 0, userId: userId, title: 'Board를 만들어주세요.' }}
+        board={{ id: 0, userId: 1, title: 'Board를 만들어주세요.' }}
       >
         +Add Board
       </SaveBoard>
@@ -54,7 +56,7 @@ export default function HnContainer() {
           검색
         </Button>
       </form>
-      {/* <SortBoardList /> */}
+      <SortBoardList />
     </div>
   );
 }
