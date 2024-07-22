@@ -7,6 +7,7 @@ import { Button } from '../ui/button';
 import { Calendar } from '../ui/calendar';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -31,8 +32,10 @@ export function OpenTask({
   let flag: {
     [k: string]: string;
   } = {};
+  let flag2: string;
   const [date, setDate] = useState<Date | undefined>(new Date());
 
+  //title flag
   // create Task일 때
   if (isCreate) {
     flag = {
@@ -47,10 +50,16 @@ export function OpenTask({
     };
   }
 
+  //button flag
+  // create Task일 때
+  if (isCreate) flag2 = 'Cancel';
+  // update Task일 때
+  else flag2 = 'Delete';
+
   const titleRef = useRef<HTMLInputElement>(null);
   const detailRef = useRef<HTMLTextAreaElement>(null);
 
-  const { addTodo, saveTodo } = useSession();
+  const { addTodo, saveTodo, removeTodo } = useSession();
 
   const add = () => {
     const title = titleRef.current?.value || '';
@@ -63,7 +72,6 @@ export function OpenTask({
       detail: detail,
       todoCompletedDate: date || new Date(),
     };
-    alert(`title: ${title}, detail: ${detail}`);
     addTodo(newTodo);
   };
 
@@ -81,18 +89,22 @@ export function OpenTask({
     saveTodo(editTodo);
   };
 
+  const remove = () => {
+    if (todo) removeTodo(todo.id);
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button
           variant={isCreate ? 'secondary' : 'default'}
-          className={isCreate ? 'w-full' : ''}
+          className={isCreate ? 'absolute inset-x-0 bottom-0 z-0' : 'z-0'}
           size={isCreate ? 'default' : 'sm'}
         >
           {flag.type}
         </Button>
       </DialogTrigger>
-      <DialogContent className='sm:max-w-[425px]'>
+      <DialogContent className='min-w-[425px]'>
         <DialogHeader>
           <DialogTitle>{flag.type}</DialogTitle>
           <DialogDescription>
@@ -154,6 +166,14 @@ export function OpenTask({
           />
         </div>
         <DialogFooter>
+          <DialogClose asChild>
+            <Button
+              variant={isCreate ? 'outline' : 'destructive'}
+              onClick={!isCreate ? remove : () => {}}
+            >
+              {flag2}
+            </Button>
+          </DialogClose>
           <DialogTrigger asChild>
             <Button onClick={isCreate ? add : save}>Save</Button>
           </DialogTrigger>

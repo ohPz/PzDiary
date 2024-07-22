@@ -33,7 +33,7 @@ export default function Home() {
           이승은
           <SeContainer />
         </div>
-        <div className='flex-1 bg-blue-200'>
+        <div className='flex-1 w-1/2 bg-blue-200'>
           곽소영
           <SessionProvider>
             <SyContainter />
